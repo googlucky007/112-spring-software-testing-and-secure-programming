@@ -8,50 +8,64 @@ alpha.setName('alpha');
 
 test("Test MyClass's addStudent", () => {
     // TODO
-    // 1. no one in class.
+    // 課堂上沒有人
     assert.strictEqual(myclass.students.length, 0);
 
-    // 2. if add not from Student
+    // 如果添加不是來自學生
     assert.strictEqual(myclass.addStudent("student"), -1);
 
-    // 3. add student from Student
+    //  從學生加入學生
     myclass.addStudent(alpha);
     assert.strictEqual(myclass.students.length, 1);
+
+
     // throw new Error("Test not implemented");
 });
 
 test("Test MyClass's getStudentById", () => {
     // TODO
-    // 1. student doesn't exist
+
+    // 學生不存在
     assert.strictEqual(myclass.getStudentById(10), null);
-    // 2. student exist
+
+    // 學生存在
     assert.strictEqual(myclass.getStudentById(0), alpha);
-    // 3. Id isn't a number
+
+    // ID 不是數字
     assert.strictEqual(myclass.getStudentById("alpha"), undefined);
-    // 4. Id is negative number
+
+    // id為負數
     assert.strictEqual(myclass.getStudentById(-1), null);
+
+
     //throw new Error("Test not implemented");
 });
 
 test("Test Student's setName", () => {
     // TODO
     let beta = new Student();
-    // 1. name isn't string
+
+    // 名稱不是字串
     beta.setName(123);
     assert.strictEqual(beta.name, undefined);
-    // 2. name is string
+
+    // 名稱是字串
     beta.setName("beta");
     assert.strictEqual(beta.name, "beta");
+
     //throw new Error("Test not implemented");
 });
 
 test("Test Student's getName", () => {
     // TODO
+    
     let gama = new Student();
-    // 1. name isn't set
+    // 名稱未設定
     assert.strictEqual(gama.getName(), "");
-    // 2. name is set
+
+    // 名稱已設定
     gama.setName("gama");
     assert.strictEqual(gama.getName(), "gama");
+
     //throw new Error("Test not implemented");
 });
