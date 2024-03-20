@@ -22,7 +22,7 @@ test('should be able to write mail', () => {
     const mailSystem = new MailSystem();
     assert.strictEqual(mailSystem.write('test'), 'Congrats, test!');
     assert.strictEqual(mailSystem.write(null), 'Congrats, null!');
-    assert.strictEqual(mailSystem.write(7777), 'Congrats, 7777!');
+    assert.strictEqual(mailSystem.write(1111), 'Congrats, 1111!');
 });
 
 test('should be able to send mail', () => {
