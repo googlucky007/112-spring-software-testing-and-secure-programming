@@ -14,7 +14,7 @@ test('MailSystem_write()', () => {
     const ms = new MailSystem();
     assert.strictEqual(ms.write('martin'), 'Congrats, martin!');
     assert.strictEqual(ms.write(null), 'Congrats, null!');
-    assert.strictEqual(ms.write(15807), 'Congrats, 15807!');
+    assert.strictEqual(ms.write(111), 'Congrats, 111!');
 });
 
 test('MailSystem_send()', () => {
