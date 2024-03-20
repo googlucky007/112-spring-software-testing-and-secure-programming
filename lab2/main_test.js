@@ -8,16 +8,14 @@ const { Application, MailSystem } = require('./main');
 
 // TODO: write your tests here
 // Remember to use Stub, Mock, and Spy when necessary
-
-
-test('MailSystem_write()', () => {
+test('Test MailSystem : write()', () => {
     const ms = new MailSystem();
     assert.strictEqual(ms.write('martin'), 'Congrats, martin!');
     assert.strictEqual(ms.write(null), 'Congrats, null!');
-    assert.strictEqual(ms.write(15807), 'Congrats, 15807!');
+    assert.strictEqual(ms.write(1111), 'Congrats, 1111!');
 });
 
-test('MailSystem_send()', () => {
+test('Test MailSystem : send()', () => {
     const ms = new MailSystem();
     const name = 'martin';
     test.mock.method(Math, 'random', () => 0.6);
@@ -26,14 +24,14 @@ test('MailSystem_send()', () => {
     assert.strictEqual(ms.send(name, 'fail'), false);
 });
 
-test('Application_getNames()', async () => {
+test('Test Application : getNames()', async () => {
     const app = new Application();
     const name_list = ['martin', 'john', 'tom'];
     const names = await app.getNames();
     assert.deepStrictEqual(names, [name_list, []])
 });
 
-test('Application_getRandomPerson()', async (test) => {
+test('Test Application : getRandomPerson()', async (test) => {
     const app = new Application();
     const names = await app.getNames();
     test.mock.method(Math, 'random', () => 0);
@@ -44,7 +42,7 @@ test('Application_getRandomPerson()', async (test) => {
     assert.strictEqual(app.getRandomPerson(), 'tom');
 });
 
-test('Application_selectNextPerson()', async (test) => {
+test('Test Application : selectNextPerson()', async (test) => {
     const app = new Application();
     const names = await app.getNames();
     app.selected = ['martin'];
@@ -61,7 +59,7 @@ test('Application_selectNextPerson()', async (test) => {
     assert.strictEqual(app.selectNextPerson(), null);
 });
 
-test('Application_notifySelected()', async (test) => {
+test('Test Application : notifySelected()', async (test) => {
     const app = new Application();
     app.people = ['martin', 'john', 'tom'];
     app.selected = ['martin', 'john', 'tom'];
@@ -70,36 +68,4 @@ test('Application_notifySelected()', async (test) => {
     app.notifySelected();
     assert.strictEqual(app.mailSystem.send.mock.calls.length, 3);
     assert.strictEqual(app.mailSystem.write.mock.calls.length, 3);
-});
-
-
-test('should not been selected ', () => {
-    const app = new Application();
-    let getRandomPersonCallCount = 0;
-    app.getRandomPerson = () => {
-        switch (getRandomPersonCallCount++) {
-            case 0:
-                return 'martin';
-            case 1:
-                return 'john';
-            case 2:
-                return 'tom';
-        }
-    };
-    app.selected = ['martin', 'john'];
-    const result = app.selectNextPerson();
-    assert.strictEqual(result, 'tom'); 
-    assert.strictEqual(getRandomPersonCallCount, 3); 
-});     
-
-test('should write and send person', () => {
-     const app = new Application();
-     this.writeCallCount = 0;
-     this.sendCallCount = 0;
-     this.writeCallCount++;
-     this.sendCallCount++;
-     app.selected = ['martin', 'john', 'tom'];
-    app.notifySelected();
-    assert.strictEqual(this.writeCallCount, 1);
-    assert.strictEqual(this.sendCallCount, 1);
 });
