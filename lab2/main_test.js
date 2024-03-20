@@ -14,7 +14,7 @@ test('MailSystem_write()', () => {
     const ms = new MailSystem();
     assert.strictEqual(ms.write('martin'), 'Congrats, martin!');
     assert.strictEqual(ms.write(null), 'Congrats, null!');
-    assert.strictEqual(ms.write(111), 'Congrats, 111!');
+    assert.strictEqual(ms.write(15807), 'Congrats, 15807!');
 });
 
 test('MailSystem_send()', () => {
@@ -70,4 +70,36 @@ test('Application_notifySelected()', async (test) => {
     app.notifySelected();
     assert.strictEqual(app.mailSystem.send.mock.calls.length, 3);
     assert.strictEqual(app.mailSystem.write.mock.calls.length, 3);
+});
+
+
+test('should not been selected ', () => {
+    const app = new Application();
+    let getRandomPersonCallCount = 0;
+    app.getRandomPerson = () => {
+        switch (getRandomPersonCallCount++) {
+            case 0:
+                return 'martin';
+            case 1:
+                return 'john';
+            case 2:
+                return 'tom';
+        }
+    };
+    app.selected = ['martin', 'john'];
+    const result = app.selectNextPerson();
+    assert.strictEqual(result, 'tom'); 
+    assert.strictEqual(getRandomPersonCallCount, 3); 
+});     
+
+test('should write and send person', () => {
+     const app = new Application();
+     this.writeCallCount = 0;
+     this.sendCallCount = 0;
+     this.writeCallCount++;
+     this.sendCallCount++;
+     app.selected = ['martin', 'john', 'tom'];
+    app.notifySelected();
+    assert.strictEqual(this.writeCallCount, 1);
+    assert.strictEqual(this.sendCallCount, 1);
 });
