@@ -12,7 +12,7 @@ test('Test MailSystem : write()', () => {
     const ms = new MailSystem();
     assert.strictEqual(ms.write('martin'), 'Congrats, martin!');
     assert.strictEqual(ms.write(null), 'Congrats, null!');
-    assert.strictEqual(ms.write(1111), 'Congrats, 1111!');
+    assert.strictEqual(ms.write(48763), 'Congrats, 48762!');
 });
 
 test('Test MailSystem : send()', () => {
