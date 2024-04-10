@@ -1,6 +1,7 @@
 const puppeteer = require('puppeteer');
 
 (async () => {
+
     // 啟動瀏覽器並開啟新的空白頁面
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
