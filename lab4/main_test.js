@@ -2,7 +2,7 @@ const puppeteer = require('puppeteer');
 
 (async () => {
     // 啟動瀏覽器並開啟新的空白頁面
-    // 啟動瀏覽器並開啟新的空白頁面 const browser = await puppeteer.launch({headless:false, executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe'});
+    // const browser = await puppeteer.launch({headless:false, executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe'});
     const browser = await puppeteer.launch();
   
     const page = await browser.newPage();
@@ -32,8 +32,8 @@ const puppeteer = require('puppeteer');
     await page.goto(targetHref[0]);
 
     // 使用 CSS 選擇器擷取單一元素
-	// 選擇器範例：h7
-    const element = await page.$('h7'); 
+	// 選擇器範例：h1
+    const element = await page.$('h1'); 
 
     // 擷取並記錄元素的文字內容
     const elementText = await page.evaluate(element => element.textContent, element);
